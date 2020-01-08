@@ -1,0 +1,67 @@
+<div class="container">
+<form [formGroup]="form" (ngSubmit)="addPost()">
+  <label>
+    Name:
+    <input type="text" formControlName="name">
+  </label>
+  <label>
+    Email:
+    <input type="text" formControlName="email">
+  </label>
+  <label>
+    Age:
+    <input type="text" formControlName="age">
+  </label>
+  <button>{{editMode ? 'Update' : 'Submit'}}</button>
+</form>
+  <button (click)="getPosts()">Show list</button>
+<table class="table">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Name</th>
+    <th scope="col">Age</th>
+    <th scope="col">E-mail</th>
+    <th scope="col">Edit</th>
+    <th scope="col">Delete</th>
+    <th scope="col">ID</th>
+    <th scope="col">Rating</th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let post of posts; let i = index" [class.test]="editMode && post.id === form.controls.id.value">
+    <th scope="row">{{i+1}}</th>
+    <td>{{post.name }}</td>
+    <td>{{post.age }}</td>
+    <td>{{post.email}}</td>
+    <td><i class="fas fa-edit text-success" (click)="updatePost($event, i, post)"></i></td>
+    <td><i class="far fa-trash-alt text-danger" (click)="deletePost($event, i, post)"></i></td>
+    <td>{{post.id}}</td>
+    <td>   <div class="flex-container">
+      <ng-container *ngFor="let star of stars">
+        <app-star [starId]="star" [rating]="hoverState || rating" (enter)="enter($event)" (leave)="leave($event)"
+                  (bigClick)="updateRating($event, star) ">
+        </app-star>
+      </ng-container>
+      <p class="float-right">
+        Your rated : <span class="text-danger">{{rating}}</span>  / 6
+      </p>
+    </div></td>
+  </tr>
+  </tbody>
+</table>
+<!--  <p>-->
+<!--  Value: {{ this.form.controls.name.value}}-->
+<!--  </p>-->
+  <div class="flex-container">
+    <ng-container *ngFor="let star of stars">
+      <app-star [starId]="star" [rating]="hoverState || rating" (enter)="enter($event)" (leave)="leave($event)"
+                (bigClick)="updateRating($event, star) ">
+      </app-star>
+    </ng-container>
+    <p class="float-right">
+      Your rated : <span class="text-danger">{{rating}}</span>  / 6
+    </p>
+  </div>
+</div>

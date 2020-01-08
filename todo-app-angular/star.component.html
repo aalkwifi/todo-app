@@ -1,0 +1,8 @@
+
+  <a (click)="starClicked()" class="star-rating-blank" (mouseenter)="onEnter()" (mouseleave)="onLeave()"
+       placement="bottom" ngbTooltip="{{starId}}"
+       [ngClass]="{'star-rating-color': rating >= starId, 'star-rating-blank': rating < starId}">
+    <i class="far fa-star"></i>
+  </a>
+
+
